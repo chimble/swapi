@@ -10,7 +10,13 @@ function swapistuff(){
 })
     }
 }
-swapistuff()
+function clearBoys(){
+    document.getElementById("xlocation").innerHTML = ""
+}
+
+$("#peopleButton").click(swapistuff)
+$("#clearButton").click(clearBoys)
+
 // var $stuff = $("<p>")
 // var results = jQuery.ajax( 'http://api.open-notify.org/iss-now.json'  ).done(function(){
 //     var blah = results.responseJSON
