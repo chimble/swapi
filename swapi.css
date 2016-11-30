@@ -1,0 +1,8 @@
+ol{
+    list-style: none;
+}
+
+li.tab{
+    padding-left: 50px;
+    color: red;
+}

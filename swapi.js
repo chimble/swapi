@@ -39,13 +39,15 @@ function vehiclesliststuff(){
 function peoplesearch(name){
     var searchName = document.getElementById("name").value
     console.log(searchName)
-    var $stuff = $("<ol>")
+    var $stuff = $("<ol class='ol'>")
     for(var j = 1; j<10; j++){
         jQuery.ajax("http://swapi.co/api/people?page=" + j).done(function(results){
             var peoplestuff = results.results
             for(var i = 0; i < peoplestuff.length; i++){
                 if(searchName==peoplestuff[i]['name']){
                     homeworldbyId(peoplestuff[i]['homeworld'])
+                    filmsbyId(peoplestuff[i]['films'])
+                    speciesbyId(peoplestuff[i]['species'])
                     $stuff.html("Name: " + peoplestuff[i]['name'] + "<br>" +
                                 "Skin Color: " + peoplestuff[i]['skin_color'] + "<br>" +
                                 "Hair Color: " + peoplestuff[i]['hair_color'] + "<br>" +
@@ -53,7 +55,8 @@ function peoplesearch(name){
                                 "Birth Year: " + peoplestuff[i]['birth_year'] + "<br>" +
                                 "Gender: " + peoplestuff[i]['gender'] + "<br>" +
                                 "Homeworld: <span id='homeworld'></span><br>" +
-                                "Films: ")
+                                "Films: <li class='tab' id='films'></li><br>" +
+                                "Species: <span id='species'></span>")
                     $("#xlocation").append($stuff)
                 }
 
@@ -62,12 +65,27 @@ function peoplesearch(name){
     }
 }
 
+function speciesbyId(url){
+    var address = url[0]
+    jQuery.ajax(address).done(function(results){
+        $('#species').html(results['name'])
+    })
+}
+
 function homeworldbyId(url){
     var address = url
     jQuery.ajax(address).done(function(results){
         $('#homeworld').html(results['name'])
     })
+}
 
+function filmsbyId(list_urls){
+    var list_films = list_urls
+    for(var i=0; i<list_films.length; i++){
+    jQuery.ajax(list_films[i]).done(function(results){
+        $('#films').html($('#films').html() + '<br>' + results['title'] )
+    })
+}
 }
 
 function clearBoys(){
