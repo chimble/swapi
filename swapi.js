@@ -45,13 +45,15 @@ function peoplesearch(name){
             var peoplestuff = results.results
             for(var i = 0; i < peoplestuff.length; i++){
                 if(searchName==peoplestuff[i]['name']){
+                    homeworldbyId(peoplestuff[i]['homeworld'])
                     $stuff.html("Name: " + peoplestuff[i]['name'] + "<br>" +
                                 "Skin Color: " + peoplestuff[i]['skin_color'] + "<br>" +
                                 "Hair Color: " + peoplestuff[i]['hair_color'] + "<br>" +
                                 "Eye Color: " + peoplestuff[i]['eye_color'] + "<br>" +
                                 "Birth Year: " + peoplestuff[i]['birth_year'] + "<br>" +
                                 "Gender: " + peoplestuff[i]['gender'] + "<br>" +
-                                "Homeworld: " + peoplestuff[i]['homeworld'] + "<br>" )
+                                "Homeworld: <span id='homeworld'></span><br>" +
+                                "Films: ")
                     $("#xlocation").append($stuff)
                 }
 
@@ -60,6 +62,13 @@ function peoplesearch(name){
     }
 }
 
+function homeworldbyId(url){
+    var address = url
+    jQuery.ajax(address).done(function(results){
+        $('#homeworld').html(results['name'])
+    })
+
+}
 
 function clearBoys(){
     document.getElementById("xlocation").innerHTML = ""
