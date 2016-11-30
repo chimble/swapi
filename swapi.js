@@ -3,6 +3,7 @@ function peopleliststuff(){
     for(var j = 1; j<10; j++){
         jQuery.ajax("http://swapi.co/api/people?page=" + j).done(function(results){
             var peoplestuff = results.results
+            console.log(peoplestuff)
             for(var i = 0; i < peoplestuff.length; i++){
                 $stuff.html($stuff.html()+ peoplestuff[i]['name'] + "<br>")
                 $("#xlocation").append($stuff)
@@ -35,6 +36,29 @@ function vehiclesliststuff(){
     }
 }
 
+function peoplesearch(name){
+    var searchName = document.getElementById("name").value
+    console.log(searchName)
+    var $stuff = $("<ol>")
+    for(var j = 1; j<10; j++){
+        jQuery.ajax("http://swapi.co/api/people?page=" + j).done(function(results){
+            var peoplestuff = results.results
+            for(var i = 0; i < peoplestuff.length; i++){
+                if(searchName==peoplestuff[i]['name']){
+                    $stuff.html("Name: " + peoplestuff[i]['name'] + "<br>" +
+                                "Skin Color: " + peoplestuff[i]['skin_color'] + "<br>" +
+                                "Hair Color: " + peoplestuff[i]['hair_color'] + "<br>" +
+                                "Eye Color: " + peoplestuff[i]['eye_color'] + "<br>" +
+                                "Birth Year: " + peoplestuff[i]['birth_year'] + "<br>" +
+                                "Gender: " + peoplestuff[i]['gender'] + "<br>" +
+                                "Homeworld: " + peoplestuff[i]['homeworld'] + "<br>" )
+                    $("#xlocation").append($stuff)
+                }
+
+            }
+        })
+    }
+}
 
 
 function clearBoys(){
@@ -45,6 +69,7 @@ $("#vehiclesButton").click(vehiclesliststuff)
 $("#movieButton").click(movieliststuff)
 $("#peopleButton").click(peopleliststuff)
 $("#clearButton").click(clearBoys)
+$("#submit").click(peoplesearch)
 
 // var $stuff = $("<p>")
 // var results = jQuery.ajax( 'http://api.open-notify.org/iss-now.json'  ).done(function(){
