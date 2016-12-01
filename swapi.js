@@ -48,6 +48,7 @@ function peoplesearch(name){
                     homeworldbyId(peoplestuff[i]['homeworld'])
                     filmsbyId(peoplestuff[i]['films'])
                     speciesbyId(peoplestuff[i]['species'])
+                    vehiclesbyId(peoplestuff[i]['vehicles'])
                     $stuff.html("Name: " + peoplestuff[i]['name'] + "<br>" +
                                 "Skin Color: " + peoplestuff[i]['skin_color'] + "<br>" +
                                 "Hair Color: " + peoplestuff[i]['hair_color'] + "<br>" +
@@ -56,6 +57,7 @@ function peoplesearch(name){
                                 "Gender: " + peoplestuff[i]['gender'] + "<br>" +
                                 "Homeworld: <span id='homeworld'></span><br>" +
                                 "Films: <li class='tab' id='films'></li><br>" +
+                                "Vehicles: <li class='tab' id='vehicles'></li><br>" +
                                 "Species: <span id='species'></span>")
                     $("#xlocation").append($stuff)
                 }
@@ -84,6 +86,15 @@ function filmsbyId(list_urls){
     for(var i=0; i<list_films.length; i++){
     jQuery.ajax(list_films[i]).done(function(results){
         $('#films').html($('#films').html() + '<br>' + results['title'] )
+    })
+}
+}
+
+function vehiclesbyId(list_urls){
+    var list_vehicles = list_urls
+    for(var i=0; i<list_vehicles.length; i++){
+    jQuery.ajax(list_vehicles[i]).done(function(results){
+        $('#vehicles').html($('#vehicles').html() + '<br>' + results['name'] )
     })
 }
 }
