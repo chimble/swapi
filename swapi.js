@@ -3,7 +3,6 @@ function peopleliststuff(){
     for(var j = 1; j<10; j++){
         jQuery.ajax("http://swapi.co/api/people?page=" + j).done(function(results){
             var peoplestuff = results.results
-            console.log(peoplestuff)
             for(var i = 0; i < peoplestuff.length; i++){
                 $stuff.html($stuff.html()+ peoplestuff[i]['name'] + "<br>")
                 $("#xlocation").append($stuff)
@@ -38,7 +37,6 @@ function vehiclesliststuff(){
 
 function peoplesearch(name){
     var searchName = document.getElementById("name").value
-    console.log(searchName)
     var $stuff = $("<ol class='ol'>")
     for(var j = 1; j<10; j++){
         jQuery.ajax("http://swapi.co/api/people?page=" + j).done(function(results){
@@ -97,10 +95,12 @@ function moviesearch(movie){
             var moviestuff = results.results
             for(var i = 0; i < moviestuff.length; i++){
                 if(searchName==moviestuff[i]['title']){
+                    charactersbyId(moviestuff[i]['characters'])
                     $stuff.html("Title: " + moviestuff[i]['title'] + "<br>" +
                                 "Director: " + moviestuff[i]['director'] + "<br>" +
                                 "Producer(s): " + moviestuff[i]['producer'] + "<br>" +
-                                "Release Date: " + moviestuff[i]['release_date'] + "<br>"
+                                "Release Date: " + moviestuff[i]['release_date'] + "<br>" +
+                                "Top Actors: <li class='tab' id='characters'></li><br>"
                             )
                     $("#xlocation").append($stuff)
                 }
@@ -108,6 +108,15 @@ function moviesearch(movie){
             }
         })
 
+}
+
+function charactersbyId(list_urls){
+    var list_characters = list_urls
+    for(var i=0; i<3; i++){
+    jQuery.ajax(list_characters[i]).done(function(results){
+        $('#characters').html($('#characters').html() + '<br>' + results['name'] )
+    })
+}
 }
 
 function speciesbyId(url){
